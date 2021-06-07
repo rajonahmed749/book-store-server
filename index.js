@@ -52,16 +52,16 @@ client.connect(err => {
 
     })
   })
-
+  // place an order
   app.post("/addOrder", (req, res) => {
     const order = req.body;
-    console.log(order);
     orderCollection.insertOne(order)
     .then(result =>{
       res.send(result.insertedCount > 0 )
-      // res.send(console.log(result))
     })
   })
+
+  // get all orders
   app.get('/allOrder', (req, res) => {
     orderCollection.find({})
     .toArray((err, documents) =>{
