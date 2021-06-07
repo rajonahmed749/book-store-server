@@ -55,9 +55,11 @@ client.connect(err => {
 
   app.post("/addOrder", (req, res) => {
     const order = req.body;
+    console.log(order);
     orderCollection.insertOne(order)
     .then(result =>{
-      res.send(result.insertedCount > 0)
+      res.send(result.insertedCount > 0 )
+      // res.send(console.log(result))
     })
   })
   app.get('/allOrder', (req, res) => {
@@ -66,6 +68,15 @@ client.connect(err => {
       res.send(documents)
     })
   })
+
+
+    //get specific user data
+    app.get('/user-data', (req, res) => {
+      userCollection.find({ email: req.query.email })
+        .toArray((err, documents) => {
+          res.send(documents)
+        })
+    })
 
 
   // delete book
